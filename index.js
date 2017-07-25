@@ -1,6 +1,9 @@
 let GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 let request = require('request');
-let io = require('socket.io')(8090);
+
+let port = process.env.PORT || 1337;
+let io = require('socket.io')(port);
+io.set('origins', "*:*");
 
 let busStore = {};
 
@@ -14,8 +17,8 @@ function getBuses() {
       encoding: null,
       headers: {
         'cache-control': 'no-cache'
-      },
-      proxy: 'http://proxy.us.abb.com:8080'
+      }//,
+      //proxy: 'http://proxy.us.abb.com:8080'
     };
     request(requestSettings, function (error, response, body) {
       if (!error && response.statusCode == 200) {

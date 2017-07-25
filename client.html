@@ -8,7 +8,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <script>
-      var socket = io("http://localhost:8090");
+      var socket = io("http://cota-push-api.azurewebsites.net/");
 
       socket.on('locationUpdate', function(msg) {
         console.log('locationUpdate: ' + msg);
