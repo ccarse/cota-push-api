@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>COTA API Testing</title>
+  </head>
+  <body>
+    Check the console.
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script>
+      var socket = io("http://localhost:8090");
+
+      socket.on('locationUpdate', function(msg) {
+        console.log('locationUpdate: ' + msg);
+      });
+
+      socket.on('busRemoved', function(msg) {
+        console.log('busRemoved: ' + msg);
+      });
+
+    </script>
+  </body>
+</html>
