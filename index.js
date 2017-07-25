@@ -2,8 +2,22 @@ let GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 let request = require('request');
 
 let port = process.env.PORT || 1337;
-let io = require('socket.io')(port);
-io.set('origins', "*:*");
+// let io = require('socket.io')(port);
+// io.origins((origin, callback) => {
+//   callback(null, true);
+// });
+var server = require("http").createServer(onRequest);
+var io = require("socket.io")(server);
+
+server.listen(port);
+
+function onRequest(req,res){
+  res.writeHead(200, {
+  'Access-Control-Allow-Origin' : '*',
+  'Access-Control-Allow-Credentials': false
+  });
+};
+
 
 let busStore = {};
 
