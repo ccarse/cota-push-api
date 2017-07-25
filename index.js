@@ -2,14 +2,20 @@ let GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 let request = require('request');
 
 let port = process.env.PORT || 1337;
-// let io = require('socket.io')(port);
-// io.origins((origin, callback) => {
-//   callback(null, true);
-// });
-var server = require("http").createServer(onRequest);
-var io = require("socket.io")(server);
 
-server.listen(port);
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept-Type');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
+server.listen(80);
+
 
 function onRequest(req,res){
   res.writeHead(200, {
